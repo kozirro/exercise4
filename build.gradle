@@ -1,0 +1,54 @@
+group 'jakub.wojcik'
+group 'dawid124.webd.pl'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+mainClassName = "wojcik.jakub.com.Main"
+idea {
+    module {
+        // if you hate browsing Javadoc
+        downloadJavadoc = false
+
+        // and love reading sources :)
+        downloadSources = true
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springVersion = '4.2.5.RELEASE'
+    activemqVersion = '5.13.2'
+    log4jVersion = '2.5'
+    junitVersion = '4.12'
+
+    libraries = [
+
+
+            activemqCore: [
+                    "org.apache.activemq:activemq-broker:${activemqVersion}",
+                    "org.apache.activemq:activemq-kahadb-store:${activemqVersion}",
+                    "org.apache.activemq:activemq-spring:${activemqVersion}",
+            ],
+
+            log4j: [
+                    "org.apache.logging.log4j:log4j-api:${log4jVersion}",
+                    "org.apache.logging.log4j:log4j-core:${log4jVersion}",
+                    "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
+            ]
+    ]
+}
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile libraries.log4j
+    compile "javax:javaee-api:7.0"
+    compile group: 'org.apache.activemq', name: 'activemq-core', version: '5.7.0'
+    compile group: 'org.apache.activemq', name: 'activemq-broker', version: '5.13.3'
+    compile group: 'org.apache.activemq', name: 'activemq-kahadb-store', version: '5.13.3'
+}
