@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+    <jms:annotation-driven/>
+
+    <amq:broker id="amq-broker">
+        <amq:transportConnectors>
+            <amq:transportConnector uri="tcp://localhost:62616?deleteAllMessagesOnStartup=true" />
+        </amq:transportConnectors>
+    </amq:broker>
+
+    <amq:connectionFactory id="jmsConnectionFactory" brokerURL="tcp://localhost:62616" trustAllPackages="true">
+        <amq:properties>
+            <amq:redeliveryPolicy maximumRedeliveries="1"/>
+        </amq:properties>
+    </amq:connectionFactory>
+</beans>
